@@ -1,0 +1,9 @@
+{
+  "name": "YUKTI — Your Unified Kit for Tracking Items",
+  "short_name": "YUKTI",
+  "description": "Find. Connect. Return.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#06101f",
+  "theme_color": "#071326"
+}

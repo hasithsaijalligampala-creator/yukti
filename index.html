@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071326">
+  <title>YUKTI — Find. Connect. Return.</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">Y</span><span>YUKTI<small>Find. Connect. Return.</small></span></a>
+    <nav><button class="nav-btn" data-view="home">Home</button><button class="nav-btn" data-view="search">Find items</button><button class="nav-btn" data-view="report">Report item</button><button class="nav-btn" data-view="account">Sign in</button><button data-view="admin" class="hidden">Admin view</button></nav>
+  </header>
+  <main>
+    <section id="setupNotice" class="notice hidden"></section>
+    <section id="homeView" class="view hero">
+      <div class="eyebrow"><span class="dot"></span> A smarter lost-and-found network</div>
+      <h1>Lost something?<br><span>Let’s bring it back.</span></h1>
+      <p class="lead">A simple, privacy-conscious way for schools, colleges, and communities to report found items and reconnect belongings with their owners.</p>
+      <div class="actions"><button class="primary" data-view="search">Search found items</button><button class="secondary" data-view="report">Report a found item</button></div>
+      <div class="feature-grid">
+        <article class="feature"><span class="feature-icon">⌕</span><h3>Find</h3><p>Search found-item reports by name and category.</p></article>
+        <article class="feature"><span class="feature-icon">▦</span><h3>Connect</h3><p>Use a QR-friendly workflow to open YUKTI quickly.</p></article>
+        <article class="feature"><span class="feature-icon">✓</span><h3>Return</h3><p>Track item status without publishing private contact details.</p></article>
+      </div>
+      <p class="footnote">Demo interface. Shared reports and accounts become active after you connect Supabase.</p>
+    </section>
+
+    <section id="searchView" class="view hidden">
+      <div class="section-heading"><div><div class="eyebrow">COMMUNITY LISTINGS</div><h2>Find an item</h2></div><button class="secondary" id="refreshBtn">Refresh</button></div>
+      <div class="search-row"><input id="searchInput" placeholder="Search item names or descriptions"><select id="categoryFilter"><option value="">All categories</option><option>Electronics</option><option>Books & stationery</option><option>Clothing</option><option>Bags</option><option>Keys</option><option>Other</option></select></div>
+      <div id="itemsList" class="items-grid"><div class="empty">Connect the database to load reports.</div></div>
+    </section>
+
+    <section id="reportView" class="view hidden">
+      <div class="form-card"><div class="eyebrow">HELP RETURN A BELONGING</div><h2>Report a found item</h2><p class="muted">Please don't include anyone's phone number, home address, or other sensitive information in the public description.</p>
+      <form id="reportForm">
+        <label>Item name *<input name="item_name" required maxlength="100" placeholder="e.g. Blue water bottle"></label>
+        <div class="form-row"><label>Category *<select name="category" required><option value="">Choose a category</option><option>Electronics</option><option>Books & stationery</option><option>Clothing</option><option>Bags</option><option>Keys</option><option>Other</option></select></label><label>Date found *<input name="date_found" type="date" required></label></div>
+        <label>Location found *<input name="location_found" required maxlength="120" placeholder="e.g. School library"></label>
+        <label>Description<textarea name="description" maxlength="500" rows="4" placeholder="Describe the item without revealing private details"></textarea></label>
+        <button class="primary full" type="submit">Submit report</button><p id="reportMessage" class="message" role="status"></p>
+      </form></div>
+    </section>
+
+    <section id="accountView" class="view hidden">
+      <div class="form-card"><div class="eyebrow">YOUR YUKTI ACCOUNT</div><h2 id="accountTitle">Sign in</h2><p class="muted">Use your email to access account features. Your password is handled by the authentication provider.</p>
+        <form id="authForm"><label>Email address<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label><label>Password<input type="password" name="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters"></label><button class="primary full" type="submit" id="authSubmit">Sign in</button></form>
+        <div class="account-actions"><button id="toggleAuth" class="text-btn">Create an account</button><button id="resetPassword" class="text-btn">Forgot password?</button><button id="signOut" class="text-btn hidden">Sign out</button></div><p id="authMessage" class="message" role="status"></p>
+        <p class="footnote">Owner/admin access must be granted securely in the database; signing up does not automatically make an account an admin.</p>
+      </div>
+    </section>
+
+    <section id="adminView" class="view hidden">
+      <div class="section-heading"><div><div class="eyebrow">RESTRICTED AREA</div><h2>Owner dashboard</h2></div><span class="pill">Admin only</span></div>
+      <div id="adminStats" class="stats-grid"></div><h3>Recent reports</h3><div id="adminList" class="items-grid"></div>
+      <p class="footnote">This dashboard depends on database-enforced admin permissions. Hiding this screen alone is not security.</p>
+    </section>
+    <footer><span>© YUKTI</span><span>Privacy first · Built to help belongings find their way home</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
