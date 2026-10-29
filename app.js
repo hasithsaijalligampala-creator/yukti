@@ -11,9 +11,7 @@ const views = ["home","search","report","account","admin"];
 function showView(name){views.forEach(v=>$(v+"View").classList.toggle("hidden",v!==name)); if(name==="search") loadItems(); if(name==="admin") loadAdmin();}
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 if(!configured){$("setupNotice").classList.remove("hidden");$("setupNotice").textContent="Setup needed: this app's interface is ready, but shared reports and sign-in will work only after you connect a Supabase project and run the database setup SQL."}
-function escapeHtml(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-async function loadItems(){
- 
+function escapeHtml(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));} 
 async function loadItems() {
   const list = $("itemsList");
 
@@ -57,7 +55,6 @@ async function loadItems() {
   }
 
   renderItems(list, data || []);
-}
 
 }
 function renderItems(target,items){if(!items.length){target.innerHTML='<div class="empty">No reports found yet. Be the first to help return an item.</div>';return;}
